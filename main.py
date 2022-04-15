@@ -4,21 +4,17 @@ import requests
 
 app = Flask(__name__)
 
+json = {'name': 'Aaron', 'email': 'aaron@mail.com', 'password': '123abc'}
+
 
 @app.route('/')
-def query_example():
-    return 'Query String Example'
-
-
-@app.route('/form-example')
-def form_example():
-    return 'Form Data Example'
+def home():
+    return 'welcome'
 
 
 @app.route('/json', methods=['GET', 'POST'])
 def json():
-
-    return jsonify({'name': 'Aaron', 'email': 'aaron@mail.com', 'password': '123abc'})
+    return jsonify(json)
 
 
 if __name__ == '__main__':
