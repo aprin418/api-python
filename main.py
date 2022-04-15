@@ -1,10 +1,14 @@
-from crypt import methods
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template
+from jinja2 import Template
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
-json = {'name': 'Aaron', 'email': 'aaron@mail.com', 'password': '123abc'}
+jsonData = {'name': 'Aaron',
+            'email': 'aaron@mail.com',
+            'password': '123abc'}
+
+t = Template("Hello{{ token }}")
 
 
 @app.route('/')
@@ -14,7 +18,12 @@ def home():
 
 @app.route('/json', methods=['GET', 'POST'])
 def json():
-    return jsonify(json)
+    return jsonify(jsonData)
+
+
+@app.route('/jinja/<username>')
+def jinja(username):
+    return render_template('index.html', username=username)
 
 
 if __name__ == '__main__':
